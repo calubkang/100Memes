@@ -1,0 +1,32 @@
+<%- include('partials/header') -%>
+<div class="fixed col">
+  <a href="/profile" class="btn btn-primary">Profile</a>
+  <a href="/logout" class="btn btn-primary">Logout</a>
+</div>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <ul class="feed list-unstyled">
+        <% for(var i=0; i<posts.length; i++) {%>
+          <li id="<%=posts[i].id%>" class="col-6 justify-content-between mt-5">
+            <h4><%= posts[i].title %></h4>
+            <a href="/post/<%= posts[i]._id%>">
+              <img class="img-fluid" src="<%= posts[i].image%>">
+            </a>
+            <div class="row justify-content-between margin-top-small">
+              <form class="col-1" action="/post/likePostFromFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
+                <button class="btn btn-primary fa fa-heart" type="submit"></button>
+              </form>
+              <h3 class="col-3"><%= posts[i].likes %> likes</h3>
+              <%if(posts[i].user==user.id){ %>
+                <form action="/post/deletePost/<%= posts[i].id %>?_method=DELETE" method="POST" class="col-2">
+                  <button class="btn btn-primary fa fa-trash" type="submit"></button>
+                </form>
+                <%}%>
+            </div>
+          </li>
+        <% } %>
+        </ul>
+    </div>
+  </div>  
+<script src="/main.js"></script>
+<%- include('partials/footer') -%>

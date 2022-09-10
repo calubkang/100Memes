@@ -1,0 +1,21 @@
+.margin-top-small{
+    margin-top: 15px;
+}
+
+.feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.fixed {
+    position: fixed;
+    left: 85%;
+    top: 5%;
+}
+.comments {
+    padding-left: 20px;
+    margin-top: 20px;
+    border-left: 1px solid grey;
+}

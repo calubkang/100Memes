@@ -6,27 +6,33 @@
   <div class="container">
     <div class="row justify-content-center mt-5">
       <ul class="feed list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li id="<%=posts[i].id%>" class="col-6 justify-content-between mt-5">
+        <% for(let i=0; i<posts.length; i++) {%>
+          <li id="<%=posts[i]._id%>" class="col-6 justify-content-between mt-5 post-on-feed">
             <h4><%= posts[i].title %></h4>
             <a href="/post/<%= posts[i]._id%>">
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
             <div class="row justify-content-between margin-top-small">
-              <form class="col-1" action="/post/likePostFromFeed/<%= posts[i]._id %>?_method=PUT" method="POST">
-                <button class="btn btn-primary fa fa-heart" type="submit"></button>
-              </form>
-              <h3 class="col-3"><%= posts[i].likes %> likes</h3>
-              <%if(posts[i].user==user.id){ %>
-                <form action="/post/deletePost/<%= posts[i].id %>?_method=DELETE" method="POST" class="col-2">
-                  <button class="btn btn-primary fa fa-trash" type="submit"></button>
-                </form>
-                <%}%>
+              <div class ='col-3'>
+                <button data-post-user="<%= posts[i].user %>" data-post-id='<%= posts[i]._id %>' class="btn btn-primary fa fa-heart like-button"></button>
+
+              </div>
+              <h3 class="col-3"><span class='like-span' data-post-id='<%= posts[i]._id %>'><%= posts[i].likes %></span> likes</h3>
+              
             </div>
           </li>
         <% } %>
         </ul>
     </div>
   </div>  
-<script src="/main.js"></script>
+  <div id="leader-board">
+    <h2>LeaderBoard</h2>
+    <ol>
+      <%for(let i=0; i<number; i++) {%>
+
+        <li class="leader justify-content-between"><a class="col-4" href='/profile/<%= allUsers[i]._id %>'><%=allUsers[i].userName%></a><span class="total-likes"><%=allUsers[i].totalLikes%> likes</span></li> 
+      <%}%>
+    </ol>
+  </div>
+
 <%- include('partials/footer') -%>

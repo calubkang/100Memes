@@ -16,7 +16,6 @@ module.exports = {
     try {
       const otherUser = await User.findById( req.params.id )
       const posts = await Post.find({ user: req.params.id });
-      console.log(otherUser)
       res.render("otherProfile.ejs", { posts: posts, user: otherUser });
     } catch (err) {
       console.log(err);
@@ -24,8 +23,15 @@ module.exports = {
   },
   getFeed: async (req, res) => {
     try {
+      let num;
+      const allUsers = await User.find().sort({ totalLikes: "desc" }).lean()
+      if (allUsers.length > 10){
+        num = 10;
+      }else {
+        num = allUsers.length
+      }
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts, user: req.user });
+      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num });
     } catch (err) {
       console.log(err);
     }
@@ -90,6 +96,12 @@ module.exports = {
             $push: {likedPosts: req.params.id}
           }
         )
+        await User.findOneAndUpdate(
+          { _id: req.body.postUser },
+          {
+            $inc: { totalLikes: 1 }
+          }
+        )
       } else {
         await Post.findOneAndUpdate(
           { _id: req.params.id },
@@ -103,6 +115,12 @@ module.exports = {
             $pull: {likedPosts: req.params.id}
           }
         )
+        await User.findOneAndUpdate(
+          { _id: req.body.postUser },
+          {
+            $inc: { totalLikes: -1 }
+          }
+        )
       }
       console.log("Likes +1");
       res.redirect(`/post/${req.params.id}`);
@@ -113,11 +131,12 @@ module.exports = {
   likePostFromFeed: async (req, res) => {
     try {
       if (!req.user.likedPosts.includes(req.params.id)) {
-        await Post.findOneAndUpdate(
+        var response = await Post.findOneAndUpdate(
           { _id: req.params.id },
           {
             $inc: { likes: 1 },
-          }
+          },
+          { new: true }
         )
         await User.findOneAndUpdate(
           { _id: req.user.id },
@@ -125,12 +144,19 @@ module.exports = {
             $push: { likedPosts: req.params.id }
           }
         )
+        await User.findOneAndUpdate(
+          {_id: req.body.postUser},
+          {
+            $inc: {totalLikes: 1}
+          }
+        )
       } else {
-        await Post.findOneAndUpdate(
+        var response = await Post.findOneAndUpdate(
           { _id: req.params.id },
           {
             $inc: { likes: -1 },
-          }
+          },
+          { new: true}
         )
         await User.findOneAndUpdate(
           { _id: req.user.id },
@@ -138,9 +164,15 @@ module.exports = {
             $pull: { likedPosts: req.params.id }
           }
         )
+        await User.findOneAndUpdate(
+          { _id: req.body.postUser },
+          {
+            $inc: { totalLikes: -1 }
+          }
+        )
       }
       console.log("Likes +1");
-      res.redirect(`/feed#${req.params.id}`);
+      res.json({ likes: response.likes })
     } catch (err) {
       console.log(err)
       return false;

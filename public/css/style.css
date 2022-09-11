@@ -9,6 +9,12 @@
     padding: 0 10%;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+}
+
 .fixed {
     position: fixed;
     left: 85%;
@@ -18,4 +24,15 @@
     padding-left: 20px;
     margin-top: 20px;
     border-left: 1px solid grey;
+}
+#leader-board {
+    position: fixed;
+    left: 3%;
+    top: 15%;
+}
+
+.total-likes {
+    font-size: x-small;
+    width: 30%;
+    margin-left: 10px;
 }

@@ -8,7 +8,6 @@ Array.from(likeButtons).forEach((btn) => {
 async function addLike() {
     const postId = this.dataset.postId // Get post ID
     const postU = this.dataset.postUser // Get post owner
-    console.log(this.dataset)
     try {
         const response = await fetch(`/post/likePostFromFeed/${postId}`, {   
             method: 'put',
@@ -17,7 +16,13 @@ async function addLike() {
                 postUser: postU
             }) })  // Simple put request with post ID in the URL
         const data = await response.json() // Parse response to get new likes
-        document.querySelector(`span[data-post-id='${postId}']`).innerText = data.likes // Update span with new like count
+        document.querySelector(`span[data-post-id='${postId}']`).innerText = data.likes // Update span with new like count and red heart
+        if(data.liked) {
+            document.querySelector(`button[data-post-id='${postId}']`).classList.add('liked')
+        } else {
+            document.querySelector(`button[data-post-id='${postId}']`).classList.remove('liked')    
+        }
+ 
     } catch (err) {
         console.log(err)
     }

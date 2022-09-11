@@ -12,12 +12,12 @@
       <p class="code-font"><%= post.title %></p>
       <img class="img-fluid" src="<%= post.image%>" />
       <div class="row justify-content-between margin-top-small">
-        <form
-          class="col-1"
-          action="/post/likePost/<%= post.id %>?_method=PUT"
-          method="POST"
-        >
-          <button class="btn btn-primary fa fa-heart" type="submit"></button>
+        <form class="col-1" action="/post/likePost/<%= post.id %>?_method=PUT" method="POST">
+          <% if (user.likedPosts.includes(post._id)) { %>
+            <button class="btn btn-primary fa fa-heart liked" type="submit"></button>
+          <%} else {%>
+            <button class="btn btn-primary fa fa-heart" type="submit"></button>
+          <%}%>
         </form>
         <h4 class="col-2"><%= post.likes %> likes</h4>
         <%if(post.user == user.id){ %>

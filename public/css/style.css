@@ -1,10 +1,19 @@
 #cover-photo {
     width: 50%;
     padding-top: 3%;
+    margin-bottom: 10px;
+    height: 165px;
+
 }
 
 #cover-photo:hover {
-    width:55%
+    width:55%;
+    height: 165px;
+}
+#cover-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 #slogan {
@@ -14,7 +23,7 @@
     font-variant: normal;
     font-weight: 700;
     line-height: 23px;
-    margin-top: 7px;
+
 }
 
 .code-font {
@@ -34,8 +43,7 @@ a{
 
 
 a:hover:not(.btn){
-    color: rgb(77, 123, 88);
-    font-size: larger;
+    color: rgb(143, 143, 143);
 }
 
 .margin-top-small{
@@ -80,4 +88,12 @@ a:hover:not(.btn){
     width: 30%;
     margin-left: 10px;
     color: rgb(162, 162, 162);
+}
+
+.liked {
+    color: red;
+}
+
+.liked:focus{
+    color: red;
 }

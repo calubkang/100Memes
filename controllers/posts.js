@@ -174,6 +174,11 @@ module.exports = {
             $inc: {totalLikes: 1}
           }
         )
+        console.log("Likes +1");
+        res.json({ 
+          likes: response.likes,
+          liked: true,
+        })
       } else {
         var response = await Post.findOneAndUpdate(
           { _id: req.params.id },
@@ -194,9 +199,13 @@ module.exports = {
             $inc: { totalLikes: -1 }
           }
         )
+        console.log("Likes -1");
+        res.json({ 
+          likes: response.likes,
+          liked: false, 
+        })
       }
-      console.log("Likes +1");
-      res.json({ likes: response.likes })
+
     } catch (err) {
       console.log(err)
       return false;

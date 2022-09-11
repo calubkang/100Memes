@@ -10,6 +10,7 @@ router.get("/", homeController.getIndex);
 router.get("/profile", ensureAuth, postsController.getProfile);
 router.get("/profile/:id", postsController.getOtherProfile)
 router.get("/feed", ensureAuth, postsController.getFeed);
+router.get("/topMemes",ensureAuth, postsController.sortByBest)
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);

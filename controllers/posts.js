@@ -23,6 +23,10 @@ module.exports = {
   },
   getFeed: async (req, res) => {
     try {
+      const linkData = {
+        link: '/topMemes',
+        linkName: 'Top Memes'
+      }
       let num;
       const allUsers = await User.find().sort({ totalLikes: "desc" }).lean()
       if (allUsers.length > 10){
@@ -31,7 +35,26 @@ module.exports = {
         num = allUsers.length
       }
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num });
+      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num, link:linkData });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  sortByBest: async (req, res) => {
+    try {
+      const linkData = {
+        link: '/feed',
+        linkName: 'New Memes'
+      }
+      let num;
+      const allUsers = await User.find().sort({ totalLikes: "desc" }).lean()
+      if (allUsers.length > 10) {
+        num = 10;
+      } else {
+        num = allUsers.length
+      }
+      const posts = await Post.find().sort({ likes: "desc" }).lean();
+      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num, link: linkData });
     } catch (err) {
       console.log(err);
     }
@@ -59,6 +82,7 @@ module.exports = {
         cloudinaryId: result.public_id,
         likes: 0,
         user: req.user.id,
+        userName: req.user.userName
       });
       console.log("Post has been added!");
       res.redirect("/profile");

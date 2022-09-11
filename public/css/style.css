@@ -1,3 +1,43 @@
+#cover-photo {
+    width: 50%;
+    padding-top: 3%;
+}
+
+#cover-photo:hover {
+    width:55%
+}
+
+#slogan {
+    font-family: Consolas, monaco, monospace;
+    font-size: 19px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 23px;
+    margin-top: 7px;
+}
+
+.code-font {
+        font-family: Consolas, monaco, monospace;
+        font-size: 16px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 700;
+        line-height: 23px;
+        margin-top: 5px;
+}
+
+a{
+    text-decoration: none !important;
+    color: black;
+}
+
+
+a:hover:not(.btn){
+    color: rgb(77, 123, 88);
+    font-size: larger;
+}
+
 .margin-top-small{
     margin-top: 15px;
 }
@@ -17,7 +57,7 @@
 
 .fixed {
     position: fixed;
-    left: 85%;
+    left: 80%;
     top: 5%;
 }
 .comments {
@@ -29,10 +69,15 @@
     position: fixed;
     left: 3%;
     top: 15%;
+    border: 1px solid rgb(92, 149, 132);
+    border-radius: 5%;
+    padding: 30px 20px;
 }
+
 
 .total-likes {
     font-size: x-small;
     width: 30%;
     margin-left: 10px;
+    color: rgb(162, 162, 162);
 }

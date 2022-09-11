@@ -1,14 +1,20 @@
 <%- include('partials/header') -%>
-<div class="fixed col">
+<div class="fixed col-9">
+  <a href="<%=link.link%>" class="btn btn-primary"><%=link.linkName%></a>
   <a href="/profile" class="btn btn-primary">Profile</a>
   <a href="/logout" class="btn btn-primary">Logout</a>
+  
 </div>
   <div class="container">
     <div class="row justify-content-center mt-5">
       <ul class="feed list-unstyled">
         <% for(let i=0; i<posts.length; i++) {%>
           <li id="<%=posts[i]._id%>" class="col-6 justify-content-between mt-5 post-on-feed">
-            <h4><%= posts[i].title %></h4>
+            <% if (posts[i].user == user.id) {%>
+              <h3><a href="/profile"><strong><%= posts[i].userName%></strong></a></h3>
+            <% } else { %>
+            <h3><a href="/profile/<%=posts[i].user%>"><strong><%= posts[i].userName%></strong></a></h3>
+            <% } %>
             <a href="/post/<%= posts[i]._id%>">
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
@@ -17,9 +23,9 @@
                 <button data-post-user="<%= posts[i].user %>" data-post-id='<%= posts[i]._id %>' class="btn btn-primary fa fa-heart like-button"></button>
 
               </div>
-              <h3 class="col-3"><span class='like-span' data-post-id='<%= posts[i]._id %>'><%= posts[i].likes %></span> likes</h3>
-              
+              <h5 class="col-2"><span class='like-span' data-post-id='<%= posts[i]._id %>'><%= posts[i].likes %></span> likes</h5>  
             </div>
+             <p class="code-font"><%=posts[i].title%></p>
           </li>
         <% } %>
         </ul>
@@ -30,7 +36,7 @@
     <ol>
       <%for(let i=0; i<number; i++) {%>
 
-        <li class="leader justify-content-between"><a class="col-4" href='/profile/<%= allUsers[i]._id %>'><%=allUsers[i].userName%></a><span class="total-likes"><%=allUsers[i].totalLikes%> likes</span></li> 
+        <li class="leader justify-content-between"><a href='/profile/<%= allUsers[i]._id %>'><%=allUsers[i].userName%></a><span class="total-likes"><%=allUsers[i].totalLikes%> likes</span></li> 
       <%}%>
     </ol>
   </div>

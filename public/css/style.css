@@ -82,6 +82,12 @@ a:hover:not(.btn){
     padding: 30px 20px;
 }
 
+#hello {
+    position: fixed;
+    left: 5%;
+    top: 6%;
+}
+
 
 .total-likes {
     font-size: x-small;

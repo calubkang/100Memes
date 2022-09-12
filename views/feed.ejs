@@ -1,9 +1,9 @@
 <%- include('partials/header') -%>
+
 <div class="fixed col-9">
   <a href="<%=link.link%>" class="btn btn-primary"><%=link.linkName%></a>
   <a href="/profile" class="btn btn-primary">Profile</a>
   <a href="/logout" class="btn btn-primary">Logout</a>
-  
 </div>
   <div class="container">
     <div class="row justify-content-center mt-5">
@@ -28,15 +28,16 @@
               </div>
               <h5 class="col-2"><span class='like-span' data-post-id='<%= posts[i]._id %>'><%= posts[i].likes %></span> likes</h5>  
             </div>
-             <p class="code-font"><%=posts[i].title%></p>
+            <p class="code-font"><%=posts[i].title%></p>
           </li>
         <% } %>
         </ul>
     </div>
   </div>  
+  <h4 id="hello" class="code-font">Hello <%=user.userName%></h4>
   <div id="leader-board">
     <h2>LeaderBoard</h2>
-    <ol>
+    <ol class="code-font">
       <%for(let i=0; i<number; i++) {%>
 
         <li class="leader justify-content-between"><a href='/profile/<%= allUsers[i]._id %>'><%=allUsers[i].userName%></a><span class="total-likes"><%=allUsers[i].totalLikes%> likes</span></li> 

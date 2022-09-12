@@ -35,7 +35,7 @@ module.exports = {
         num = allUsers.length
       }
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num, link:linkData });
+      res.render("feed.ejs", { posts: posts, user: req.user, allUsers: allUsers, number: num, link: linkData});
     } catch (err) {
       console.log(err);
     }
